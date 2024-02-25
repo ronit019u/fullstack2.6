@@ -12,7 +12,7 @@ const App = () => {
   const [errorMessage, setErrorMessage] = useState('some error happened...')
 
   useEffect(() => {
-    axios.get('http://localhost:3001/api/persons')
+    axios.get('https://phonebook-vydg.onrender.com/api/persons')
       .then(response => setPersons(response.data))
       .catch(error => console.error('Error fetching initial data', error));
   }, []);
@@ -28,7 +28,7 @@ const App = () => {
       if (confirmUpdate) {
         const updatedPerson = { ...existingPerson, number: newNumber };
 
-        axios.put(`http://localhost:3001/api/persons/${existingPerson.id}`, updatedPerson)
+        axios.put(`https://phonebook-vydg.onrender.com/api/persons/${existingPerson.id}`, updatedPerson)
           .then(response => {
             setPersons(persons.map(person => (person.id !== existingPerson.id ? person : response.data)));
             setErrorMessage(`${newName} is added`)
@@ -45,7 +45,7 @@ const App = () => {
         id: persons.length + 1,
       };
 
-      axios.post('http://localhost:3001/api/persons', newPerson)
+      axios.post('https://phonebook-vydg.onrender.com/api/persons', newPerson)
         .then(response => setPersons([...persons, response.data]))
     
         .catch(error => {
@@ -63,7 +63,7 @@ const App = () => {
     const confirmDelete = window.confirm(`Delete ${name}?`);
 
     if (confirmDelete) {
-      axios.delete(`http://localhost:3001/api/persons/${id}`)
+      axios.delete(`https://phonebook-vydg.onrender.com/api/persons/${id}`)
         .then(() => setPersons(persons.filter(person => person.id !== id)))
         .catch(error =>{
            setErrorMessage(`not able to delete ${name}`)
